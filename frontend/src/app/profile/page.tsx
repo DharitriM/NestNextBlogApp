@@ -60,10 +60,10 @@ export default function ProfilePage() {
           <div className="mb-6">
             <h1 className="text-2xl font-bold mb-2">Profile</h1>
             <p>
-              <strong>Name:</strong> {user?.name}
+              <strong>Name: </strong> {user?.name}
             </p>
             <p>
-              <strong>Email:</strong> {user?.email}
+              <strong>Email: </strong> {user?.email}
             </p>
           </div>
         ) : (
