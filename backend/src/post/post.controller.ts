@@ -1,3 +1,4 @@
+import { PostCreateDto } from './Dto/post.create.dto';
 import { Posts } from './Entity/post.entity';
 import { PostService } from './post.service';
 import {
@@ -5,6 +6,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   ParseIntPipe,
   Post,
@@ -26,7 +28,7 @@ export class PostController {
   }
 
   @Post()
-  async createPost(@Body() post: Posts) {
+  async createPost(@Body() post: PostCreateDto) {
     return await this.postService.createPost(post);
   }
 
@@ -38,5 +40,21 @@ export class PostController {
   @Delete('/:id')
   async deletePost(@Param('id', ParseIntPipe) id: number) {
     return await this.postService.deletePost(id);
+  }
+
+  @Get('/user')
+  async postByCurrentUser(@Headers('Authorization') authorization: string) {
+    // Extract the access token from the Authorization header
+    const token = authorization?.split(' ')[1];
+
+    if (!token) {
+      throw new Error('Token is missing');
+    }
+    return await this.postService.getPostsByCurrentUser(token);
+  }
+
+  @Get('/user/:id')
+  async postByUser(@Param('id', ParseIntPipe) id: number) {
+    return await this.postService.getPostsByUser(id);
   }
 }
