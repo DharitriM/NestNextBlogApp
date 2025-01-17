@@ -12,6 +12,7 @@ export const login = async (user: { email: string; password: string }) => {
 
 export const getCurrentUser = async () => {
   try {
+    console.log({oo:token})
     const response = await apiClient.get("/auth/current", {
       headers: {
         Authorization: `Bearer ${token}`,

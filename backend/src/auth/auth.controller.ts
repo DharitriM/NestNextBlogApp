@@ -23,7 +23,6 @@ export class AuthController {
   async getCurrentUser(@Headers('Authorization') authorization: string) {
     // Extract the access token from the Authorization header
     const token = authorization?.split(' ')[1];
-
     if (!token) {
       throw new Error('Token is missing');
     }

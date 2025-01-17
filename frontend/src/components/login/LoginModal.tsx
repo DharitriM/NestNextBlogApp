@@ -29,14 +29,21 @@ export default function LoginRegisterModal({
       email: formData.email,
       password: formData.password,
     });
-    localStorage.setItem("authToken", response.access_token);
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
-    onClose();
+    console.log({loginRes:response})
+    if (response?.access_token) {
+      localStorage.setItem("authToken", response?.access_token);
+      localStorage.setItem("tokenExpiration", response?.expires_at);
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      onClose();
+    } else {
+      alert("Invalid credentials");
+    }
   };
 
   const handleRegister = async () => {

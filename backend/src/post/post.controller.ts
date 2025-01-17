@@ -42,11 +42,11 @@ export class PostController {
     return await this.postService.deletePost(id);
   }
 
-  @Get('/user')
+  @Get('/current')
   async postByCurrentUser(@Headers('Authorization') authorization: string) {
     // Extract the access token from the Authorization header
     const token = authorization?.split(' ')[1];
-
+console.log("in/post/user",token)
     if (!token) {
       throw new Error('Token is missing');
     }

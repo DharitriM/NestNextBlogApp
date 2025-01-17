@@ -1,7 +1,7 @@
 "use client";
 
 import { getCurrentUser } from "@/api/auth";
-import { getPostsByUser } from "@/api/posts";
+import { getPostsByCurrentUser, getPostsByUser } from "@/api/posts";
 import AddPostModal from "@/components/addEditPost/AddPostModal";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -13,13 +13,14 @@ export default function ProfilePage() {
   const { data: user } = useQuery("auth", getCurrentUser);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPostsByUser = async () => {
       if (user?.id) {
-        const posts = await getPostsByUser(user.id);
+        // const posts = await getPostsByUser();
+        const posts = await getPostsByCurrentUser()
         setPostsByUser(posts);
       }
     };
-    fetchPosts();
+    fetchPostsByUser();
   }, [user, openAddPostModal]);
 
   return (
@@ -28,7 +29,7 @@ export default function ProfilePage() {
       <div className="max-w-4xl mb-5 mx-auto bg-white p-6 rounded-lg shadow-lg">
         {user ? (
           <div className="mb-6">
-            <h1 className="text-2xl font-bold mb-2">Profile</h1>
+            <h1 className="text-2xl font-bold mb-2">Your Details</h1>
             <p>
               <strong>Name: </strong> {user?.name}
             </p>

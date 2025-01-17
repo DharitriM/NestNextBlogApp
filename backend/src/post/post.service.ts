@@ -24,7 +24,11 @@ export class PostService {
   }
 
   async createPost(body: PostCreateDto) {
-    return await this.postRepository.save(body);
+    const response = await this.postRepository.save(body)
+    if (!response) {
+      return { message: 'Post not created' };
+    }
+    return response;
   }
 
   async updatePost(id: number, body: PostCreateDto) {
@@ -56,19 +60,21 @@ export class PostService {
   }
 
   async getPostsByCurrentUser(accessToken: string) {
-    console.log('Access Token:', accessToken);
+    console.log('Access Token: in /post/user', accessToken);
 
     const user =
       await this.authService.getCurrentUserByAccessToken(accessToken);
-    console.log('User:', user);
+    console.log('/post/user User:', user);
 
-    if (!user || typeof user.id !== 'number') {
+    if (!user ||  isNaN(Number(user.id))) {
       throw new Error('User not found or user ID is invalid');
     }
+    const userId = Number(user.id);
 
     const posts = await this.postRepository.find({
-      where: { author: user.id },
+      where: { author: userId },
     });
+    console.log('Posts by current user:', posts);
 
     return { message: 'Posts by current user', data: posts };
   }

@@ -15,7 +15,7 @@ export default function Home() {
   const handleButtonClick = () => {
     if (token) {
       // Log out logic
-      localStorage.removeItem("authToken");
+      localStorage.clear();
       window.location.reload(); // Refresh page to update UI
     } else {
       // Log in logic

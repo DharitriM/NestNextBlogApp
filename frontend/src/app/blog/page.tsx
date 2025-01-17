@@ -2,11 +2,9 @@
 
 import { fetchPosts } from "@/api/posts";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
 export default function PostsPage() {
-  // const router = useRouter();
   const { data: posts, isLoading, error } = useQuery("posts", fetchPosts);
 
   if (isLoading) return <div>Loading...</div>;
