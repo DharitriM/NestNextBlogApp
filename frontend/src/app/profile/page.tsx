@@ -16,7 +16,7 @@ export default function ProfilePage() {
     const fetchPostsByUser = async () => {
       if (user?.id) {
         // const posts = await getPostsByUser();
-        const posts = await getPostsByCurrentUser()
+        const posts = await getPostsByCurrentUser() 
         setPostsByUser(posts);
       }
     };

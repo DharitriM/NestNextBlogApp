@@ -13,18 +13,17 @@ export default function PostsPage() {
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Blog Posts</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {posts?.map((post: any) => (
           <div
             key={post.id}
-            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            // onClick={() => router.push(`/blog/${post.id}`)} // Navigate to blog details page
+            className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-cyan-200 hover:shadow-md transition-shadow duration-300"
           >
             <Link href={`/blog/${post.id}`}>
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-58 object-cover"
+                className="w-full h-50 object-cover"
               />
               <div className="p-4">
                 <h2 className="text-xl font-semibold mb-2 text-gray-800">
@@ -33,8 +32,11 @@ export default function PostsPage() {
                 <p className="text-gray-600 mb-4 text-sm line-clamp-3">
                   {post.content}
                 </p>
-                <button className="text-blue-500 hover:underline text-sm">
-                  Read more
+                <button
+                  className="text-cyan-500 border border-cyan-500 px-3 hover:bg-cyan-500 hover:text-white py-2 rounded-md text-sm"
+                  onClick={() => console.log("View details")}
+                >
+                  View Details &rarr;
                 </button>
               </div>
             </Link>

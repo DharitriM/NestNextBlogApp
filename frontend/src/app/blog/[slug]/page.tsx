@@ -5,7 +5,8 @@ export default async function PostDetailsPage({
 }: {
   params: { slug: string };
 }) {
-  const post = await fetchPostById(parseInt(params.slug));
+  const id = parseInt(params.slug);
+  const post = await fetchPostById(id);
 
   if (!post) {
     return <div>Post not found</div>;

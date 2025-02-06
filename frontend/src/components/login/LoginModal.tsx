@@ -29,7 +29,6 @@ export default function LoginRegisterModal({
       email: formData.email,
       password: formData.password,
     });
-    console.log({loginRes:response})
     if (response?.access_token) {
       localStorage.setItem("authToken", response?.access_token);
       localStorage.setItem("tokenExpiration", response?.expires_at);
@@ -52,13 +51,11 @@ export default function LoginRegisterModal({
       email: formData.email,
       password: formData.password,
     });
-    console.log("Register Response:", response);
     setIsRegister(false);
   };
 
   const handleSubmit = async () => {
     if (isRegister) {
-      console.log("Register Data:", formData);
       // Add register API logic here
       await handleRegister();
     } else {

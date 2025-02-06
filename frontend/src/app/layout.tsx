@@ -31,19 +31,18 @@ export default function RootLayout({
       const token = localStorage.getItem("authToken");
       const tokenExpiresAt = localStorage.getItem("tokenExpiration");
       const currentTimeInSeconds = Math.floor(Date.now() / 1000);
-      // if (!token) {
-      //   window.location.reload();
-      //   return;
-      // }
+      const publicRoutes = ["/", "/blog", "/about"];
+      const isPublicRoute =
+        publicRoutes.includes(pathname) || pathname.startsWith("/blog/");
 
       if (
-        !token ||
-        !tokenExpiresAt ||
-        parseInt(tokenExpiresAt) <= currentTimeInSeconds
+        (!token ||
+          !tokenExpiresAt ||
+          parseInt(tokenExpiresAt) <= currentTimeInSeconds) &&
+        !isPublicRoute
       ) {
         localStorage.clear();
         if (pathname !== "/") router.push("/");
-        // window.location.reload();
       }
     };
 
@@ -57,8 +56,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <QueryClientProvider client={queryClient}>
-          <Navbar />
-          {children}
+          <div className="sticky top-0 z-50">
+            <Navbar />
+          </div>
+          <div className="h-[calc(100vh-98px)]">{children}</div>
+          {/* {children} */}
         </QueryClientProvider>
       </body>
     </html>

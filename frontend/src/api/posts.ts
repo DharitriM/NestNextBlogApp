@@ -1,5 +1,4 @@
 import apiClient from "./apiClient";
-const token = localStorage.getItem("authToken");
 
 export const fetchPosts = async () => {
   const response = await apiClient.get("/post");
@@ -8,7 +7,7 @@ export const fetchPosts = async () => {
 };
 
 export const fetchPostById = async (id: number) => {
-  const response = await apiClient.get(`/post/${id}`);
+  const response = await apiClient.get(`/post/details/${id}`);
   if (!response) throw new Error("Failed to fetch post details");
   return response.data.data;
 };
@@ -20,7 +19,9 @@ export const createPost = async (postData: any) => {
 
 export const getPostsByCurrentUser = async () => {
   try {
-    const response = await apiClient.get("/post/user", {
+    const token = localStorage.getItem("authToken");
+    if (!token) return;
+    const response = await apiClient.get("/post/current", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -33,6 +34,8 @@ export const getPostsByCurrentUser = async () => {
 
 export const getPostsByUser = async (id: number) => {
   try {
+    const token = localStorage.getItem("authToken");
+    if (!token) return;
     const response = await apiClient.get(`/post/user/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,

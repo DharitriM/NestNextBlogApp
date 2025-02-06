@@ -9,13 +9,16 @@ const links = [
   { title: "About", path: "/about" },
 ];
 function Links() {
+  const token = localStorage.getItem("authToken");
   return (
     <div className="flex gap-4">
-      {links?.map((link, index) => (
-        <Navlink item={link} key={index}>
-          {link.title}
-        </Navlink>
-      ))}
+      {links
+        ?.filter((link) => link.title !== "Profile" || token)
+        ?.map((link, index) => (
+          <Navlink item={link} key={index}>
+            {link.title}
+          </Navlink>
+        ))}
     </div>
   );
 }

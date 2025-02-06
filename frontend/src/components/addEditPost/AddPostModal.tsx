@@ -53,7 +53,6 @@ const AddPostModal: React.FC<AddPostModalProps> = ({
     e.preventDefault();
 
     try {
-      console.log("Creating post with data:", formData);
       const postData = {
         title: formData.title,
         content: formData.content,

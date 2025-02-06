@@ -24,7 +24,7 @@ export class PostService {
   }
 
   async createPost(body: PostCreateDto) {
-    const response = await this.postRepository.save(body)
+    const response = await this.postRepository.save(body);
     if (!response) {
       return { message: 'Post not created' };
     }
@@ -60,23 +60,23 @@ export class PostService {
   }
 
   async getPostsByCurrentUser(accessToken: string) {
-    console.log('Access Token: in /post/user', accessToken);
+    try {
+      const user =
+        await this.authService.getCurrentUserByAccessToken(accessToken);
 
-    const user =
-      await this.authService.getCurrentUserByAccessToken(accessToken);
-    console.log('/post/user User:', user);
+      if (!user || isNaN(Number(user.id))) {
+        throw new Error('User not found or user ID is invalid');
+      }
+      const userId = Number(user.id);
 
-    if (!user ||  isNaN(Number(user.id))) {
-      throw new Error('User not found or user ID is invalid');
+      const posts = await this.postRepository.find({
+        where: { author: userId },
+      });
+
+      return { message: 'Posts by current user', data: posts };
+    } catch (error) {
+      console.error(error);
     }
-    const userId = Number(user.id);
-
-    const posts = await this.postRepository.find({
-      where: { author: userId },
-    });
-    console.log('Posts by current user:', posts);
-
-    return { message: 'Posts by current user', data: posts };
   }
 
   async getPostsByUser(userId: number) {

@@ -22,9 +22,19 @@ export class PostController {
     return await this.postService.getPosts();
   }
 
-  @Get('/:id')
+  @Get('/details/:id') 
   async getPostById(@Param('id', ParseIntPipe) id: number) {
     return await this.postService.getPostById(id);
+  }
+  
+  @Get('/current')
+  async postByCurrentUser(@Headers('Authorization') authorization: string) {
+    // Extract the access token from the Authorization header
+    const token = authorization?.split(' ')[1];
+    if (!token) {
+      throw new Error('Token is missing');
+    }
+    return await this.postService.getPostsByCurrentUser(token);
   }
 
   @Post()
@@ -42,19 +52,8 @@ export class PostController {
     return await this.postService.deletePost(id);
   }
 
-  @Get('/current')
-  async postByCurrentUser(@Headers('Authorization') authorization: string) {
-    // Extract the access token from the Authorization header
-    const token = authorization?.split(' ')[1];
-console.log("in/post/user",token)
-    if (!token) {
-      throw new Error('Token is missing');
-    }
-    return await this.postService.getPostsByCurrentUser(token);
-  }
-
-  @Get('/user/:id')
-  async postByUser(@Param('id', ParseIntPipe) id: number) {
-    return await this.postService.getPostsByUser(id);
-  }
+  // @Get('/user/:id')
+  // async postByUser(@Param('id', ParseIntPipe) id: number) {
+  //   return await this.postService.getPostsByUser(id);
+  // }
 }

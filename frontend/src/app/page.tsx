@@ -27,16 +27,16 @@ export default function Home() {
     <>
       <div className="relative min-h-screen bg-gray-800 text-gray-100">
         {/* Login/Logout Button */}
-        <div className="absolute top-7 px-7 flex items-center justify-between w-full">
+        <div className="absolute px-10 py-8 flex items-center justify-between w-full">
           {!token && (
             <p className="left-6 font-mono">
               Want to add to edit blog ? Then login and proceed...
             </p>
           )}
-          <div className="absolute top-1 right-6">
+          <div className="absolute top-10 right-10">
             <button
               onClick={handleButtonClick}
-              className="px-4 py-2 bg-gray-700 text-white rounded-md shadow hover:bg-gray-600 hover:shadow-lg hover:scale-105 transition-all"
+              className="px-4 py-2 border border-cyan-600 bg-gray-700 text-white rounded-md shadow hover:bg-cyan-600 hover:shadow-lg"
             >
               {token ? "Log out" : "Please login"}
             </button>

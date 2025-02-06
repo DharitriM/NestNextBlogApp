@@ -1,5 +1,4 @@
 import apiClient from "./apiClient";
-const token = localStorage.getItem("authToken");
 
 export const login = async (user: { email: string; password: string }) => {
   try {
@@ -12,7 +11,8 @@ export const login = async (user: { email: string; password: string }) => {
 
 export const getCurrentUser = async () => {
   try {
-    console.log({oo:token})
+    const token = localStorage.getItem("authToken");
+    if (!token) return;
     const response = await apiClient.get("/auth/current", {
       headers: {
         Authorization: `Bearer ${token}`,
