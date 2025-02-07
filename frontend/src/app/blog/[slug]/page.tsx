@@ -1,4 +1,6 @@
 import { fetchPostById } from "@/api/posts";
+import Link from "next/link";
+import { FaAngleLeft } from "react-icons/fa";
 
 export default async function PostDetailsPage({
   params,
@@ -14,9 +16,11 @@ export default async function PostDetailsPage({
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <a href="/blog" className="mb-4 text-blue-500 hover:underline">
-        &larr; Back to Posts
-      </a>
+      <Link href={`/blog`}>
+        <button className="px-4 py-2 text-sm border border-cyan-600 bg-gray-700 text-white rounded-md shadow hover:bg-cyan-600 hover:shadow-lg">
+          <FaAngleLeft />
+        </button>
+      </Link>
       <h1 className="text-3xl font-bold my-4">{post.title}</h1>
       <img
         src={post.image}

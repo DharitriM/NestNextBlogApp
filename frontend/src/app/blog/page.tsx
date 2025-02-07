@@ -3,6 +3,7 @@
 import { fetchPosts } from "@/api/posts";
 import Link from "next/link";
 import { useQuery } from "react-query";
+import { FaAngleRight } from "react-icons/fa";
 
 export default function PostsPage() {
   const { data: posts, isLoading, error } = useQuery("posts", fetchPosts);
@@ -13,7 +14,7 @@ export default function PostsPage() {
   return (
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Blog Posts</h1>
-      <div className="mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {posts?.map((post: any) => (
           <div
             key={post.id}
@@ -33,10 +34,11 @@ export default function PostsPage() {
                   {post.content}
                 </p>
                 <button
-                  className="text-cyan-500 border border-cyan-500 px-3 hover:bg-cyan-500 hover:text-white py-2 rounded-md text-sm"
+                  className="text-cyan-500 flex items-center gap-1 border border-cyan-500 px-3 hover:bg-cyan-500 hover:text-white py-2 rounded-md text-sm"
                   onClick={() => console.log("View details")}
                 >
-                  View Details &rarr;
+                  View Details
+                  <FaAngleRight />
                 </button>
               </div>
             </Link>

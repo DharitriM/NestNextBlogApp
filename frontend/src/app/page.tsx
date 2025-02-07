@@ -25,7 +25,14 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative min-h-screen bg-gray-800 text-gray-100">
+      <div
+        className="relative min-h-screen bg-gray-800 text-gray-100"
+        style={{
+          backgroundImage: "url('https://wallpapercave.com/wp/Yb8mPBG.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         {/* Login/Logout Button */}
         <div className="absolute px-10 py-8 flex items-center justify-between w-full">
           {!token && (
@@ -36,7 +43,7 @@ export default function Home() {
           <div className="absolute top-10 right-10">
             <button
               onClick={handleButtonClick}
-              className="px-4 py-2 border border-cyan-600 bg-gray-700 text-white rounded-md shadow hover:bg-cyan-600 hover:shadow-lg"
+              className="px-4 py-2 border bg-white border-cyan-600 text-cyan-600 rounded-md shadow hover:bg-cyan-600 hover:shadow-lg hover:text-white transition-shadow duration-300"
             >
               {token ? "Log out" : "Please login"}
             </button>

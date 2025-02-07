@@ -32,7 +32,7 @@ export default function LoginRegisterModal({
     if (response?.access_token) {
       localStorage.setItem("authToken", response?.access_token);
       localStorage.setItem("tokenExpiration", response?.expires_at);
-
+      window.location.reload(); // refresh the page
       setFormData({
         name: "",
         email: "",
@@ -59,10 +59,6 @@ export default function LoginRegisterModal({
       // Add register API logic here
       await handleRegister();
     } else {
-      console.log("Login Data:", {
-        email: formData.email,
-        password: formData.password,
-      });
       // Add login API logic here
       await handleLogin();
     }
